@@ -1,4 +1,4 @@
-# Belajar Express Prisma  🌐
+# Belajar Express Prisma 🌐
 
 ## Deskripsi
 
@@ -25,6 +25,7 @@ npx prisma init
 ```
 
 Maka akan terbuat struktur direktori seperti ini:
+
 <div align="center">
     <img src="https://github.com/panntod/Learn-Express-Prisma/blob/master/assets/preview.png?raw=true" alt="preview folder directory" style="display: block; margin-left: auto; margin-right: auto;">
 </div>
@@ -39,15 +40,15 @@ DATABASE_URL="DATABASE://USER:PASSWORD@HOST:PORT/NAME?schema=SCHEMA"
 
 Penjelasan:
 
-| Field| Description |
-| --- | --- |
+| Field    | Description                                                                |
+| -------- | -------------------------------------------------------------------------- |
 | DATABASE | Merupakan database yang digunakan (dalam repository ini menggunakan Mysql) |
-| USER | Nama pengguna basis data Anda |
-| PASSWORD | Kata sandi untuk pengguna basis data Anda |
-| HOST | Nama host Anda (untuk lingkungan lokal, biasanya localhost) |
-| PORT | Port tempat server basis data Anda berjalan (biasanya 3306 untuk Mysql) |
-| NAME | Nama tabel yang digunakan di dalam database |
-| SKEMA | Nama skema di dalam basis data (biasanya public) |
+| USER     | Nama pengguna basis data Anda                                              |
+| PASSWORD | Kata sandi untuk pengguna basis data Anda                                  |
+| HOST     | Nama host Anda (untuk lingkungan lokal, biasanya localhost)                |
+| PORT     | Port tempat server basis data Anda berjalan (biasanya 3306 untuk Mysql)    |
+| NAME     | Nama tabel yang digunakan di dalam database                                |
+| SKEMA    | Nama skema di dalam basis data (biasanya public)                           |
 
 Rubah sesuai kebutuhan anda, dalam repository ini saya merubah nya menjadi seperti:
 
@@ -114,6 +115,6 @@ model Detail_Transactoin {
 }
 ```
 
-Didalam detail transaksi `belongsTo` (mengimplementasikan) relasi dengan cara mendefinisikan menu terlebih dahulu, lalu `@relation` dengan isi: 
+Didalam detail transaksi `belongsTo` (mengimplementasikan) relasi dengan cara mendefinisikan menu terlebih dahulu, lalu `@relation` dengan isi:
 `field`: Field mana yang akan di isi
-`references`: Nilai apa yang akan di isi ke dalam field tersebut 
+`references`: Nilai apa yang akan di isi ke dalam field tersebut
