@@ -8,10 +8,9 @@ datasource db {
 }
 
 enum User_Role {
-  user
+  guest
   admin
-  kasir
-  manager
+  receptionist
 }
 
 model User {
@@ -19,57 +18,56 @@ model User {
   email       String        @unique
   password    String
   username    String
-  role        User_Role     @default(user)
+  role        User_Role?    @default(guest)
+  photo       String
   createdAt   DateTime      @default(now())
   transaction Transaction[]
 }
 
-enum Menu_Type {
-  makanan
-  minuman
+model Type_Room {
+  id           String        @id @default(uuid())
+  name         String
+  price        Int
+  description  String
+  photo        String
+  rooms        Room[]
+  transactions Transaction[]
 }
 
-model Menu {
-  id          String    @id @default(uuid())
-  name        String
-  type        Menu_Type
-  price       Int
-  description String
-  image       String
-  createdAt   DateTime  @default(now())
-  detail_transaction Detail_Transactoin[]
+model Room {
+  id                  String               @id @default(uuid())
+  number              Int
+  type_room           Type_Room            @relation(fields: [typeId], references: [id])
+  typeId              String
+  detail_transactions Detail_Transaction[]
 }
 
-model Meja {
-  id          String        @id @default(uuid())
-  number      Int
-  status      Boolean
-  transaction Transaction[]
-}
-
-enum Transaction_Status {
-  draft
-  paid
+enum Status_Transaction {
+  new
+  checkin
+  checkout
 }
 
 model Transaction {
-  id     String             @id @default(uuid())
-  date   DateTime           @default(now())
-  user   User               @relation(fields: [userId], references: [id])
-  userId String
-  meja   Meja               @relation(fields: [mejaId], references: [id])
-  mejaId String
-  status Transaction_Status
-  total  Int
-  detail_transaction Detail_Transactoin[]
+  id                  String               @id @default(uuid())
+  date_transaction    DateTime             @default(now())
+  date_checkin        DateTime?
+  date_checkout       DateTime?
+  number_of_room      Int
+  type_room           Type_Room            @relation(fields: [typeId], references: [id])
+  typeId              String
+  status              Status_Transaction?  @default(new)
+  user                User                 @relation(fields: [userId], references: [id])
+  userId              String
+  detail_transactions Detail_Transaction[]
 }
 
-model Detail_Transactoin {
-  id String @id @default(uuid())
-  transaction Transaction @relation(fields: [transactionId], references: [id])
-  transactionId String
-  menu Menu @relation(fields: [menuId], references: [id])
-  menuId String
-  price Int
-  qty Int
+model Detail_Transaction {
+  id            String       @id @default(uuid())
+  Room          Room?        @relation(fields: [roomId], references: [id])
+  roomId        String?
+  Transaction   Transaction? @relation(fields: [transactionId], references: [id])
+  transactionId String?
+  date_access   DateTime?
+  price         Int
 }
