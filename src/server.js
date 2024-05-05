@@ -15,6 +15,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(__dirname));
 
+const routes = require("./routes/route");
+app.use(routes)
+
 app.listen(PORT, () => {
   console.log(`🚀 Server of cafe runs on port ${PORT}`);
 });
